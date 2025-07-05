@@ -1,0 +1,16 @@
+{
+  "name": "dynamic-amazon-website",
+  "version": "1.0.0",
+  "description": "Dynamic Amazon-like e-commerce website",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx live-server --port=3000 --open=/index.html",
+    "start": "npx live-server --port=3000 --open=/index.html"
+  },
+  "keywords": ["ecommerce", "amazon", "frontend", "javascript"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

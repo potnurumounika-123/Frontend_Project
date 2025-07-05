@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Sign In</title>
+    <link rel="stylesheet" href="auth-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <div class="logo">
+                <img src="https://images.pexels.com/photos/6214479/pexels-photo-6214479.jpeg?auto=compress&cs=tinysrgb&w=100&h=40&fit=crop" alt="Amazon Logo">
+                <span>amazon</span>
+            </div>
+        </div>
+
+        <div class="auth-main">
+            <div class="auth-box" id="authBox">
+                <h1 id="authTitle">Sign in</h1>
+                
+                <form id="authForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="email">Email or mobile phone number</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group" id="nameGroup" style="display: none;">
+                        <label for="name">Your name</label>
+                        <input type="text" id="name" name="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                        <div class="password-help" id="passwordHelp" style="display: none;">
+                            <i class="fas fa-info-circle"></i>
+                            Passwords must be at least 6 characters.
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="confirmPasswordGroup" style="display: none;">
+                        <label for="confirmPassword">Re-enter password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword">
+                    </div>
+
+                    <button type="submit" class="auth-submit" id="authSubmit">Continue</button>
+                </form>
+
+                <div class="auth-legal">
+                    <p>By continuing, you agree to Amazon's <a href="#">Conditions of Use</a> and <a href="#">Privacy Notice</a>.</p>
+                </div>
+
+                <div class="auth-help">
+                    <details>
+                        <summary><i class="fas fa-chevron-right"></i> Need help?</summary>
+                        <div class="help-content">
+                            <a href="#">Forgot your password?</a>
+                            <a href="#">Other issues with Sign-In</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div class="auth-divider">
+                <span>New to Amazon?</span>
+            </div>
+
+            <button class="create-account-btn" id="createAccountBtn" onclick="switchToSignUp()">
+                Create your Amazon account
+            </button>
+
+            <div class="back-to-main">
+                <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Amazon</a>
+            </div>
+        </div>
+
+        <div class="auth-footer">
+            <div class="footer-links">
+                <a href="#">Conditions of Use</a>
+                <a href="#">Privacy Notice</a>
+                <a href="#">Help</a>
+            </div>
+            <div class="footer-text">
+                <p>&copy; 1996-2024, Amazon.com, Inc. or its affiliates</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal">
+        <div class="success-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 id="successTitle">Welcome to Amazon!</h2>
+            <p id="successMessage">Your account has been created successfully.</p>
+            <button onclick="redirectToMain()" class="success-btn">Continue Shopping</button>
+        </div>
+    </div>
+
+    <script src="auth-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon - Earth's Biggest Selection</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-left">
+                    <div class="logo">
+                        <img src="https://images.pexels.com/photos/6214479/pexels-photo-6214479.jpeg?auto=compress&cs=tinysrgb&w=100&h=40&fit=crop" alt="Amazon Logo">
+                        <span>amazon</span>
+                    </div>
+                </div>
+                
+                <div class="search-bar">
+                    <select class="category-select">
+                        <option value="all">All</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="books">Books</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="home">Home & Garden</option>
+                        <option value="sports">Sports</option>
+                        <option value="toys">Toys & Games</option>
+                        <option value="beauty">Beauty</option>
+                        <option value="automotive">Automotive</option>
+                        <option value="food">Food & Grocery</option>
+                    </select>
+                    <input type="text" id="searchInput" placeholder="Search Amazon">
+                    <button class="search-btn" onclick="searchProducts()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <div class="header-right">
+                    <div class="account" onclick="openAuthModal()">
+                        <span class="hello">Hello, <span id="userName">Sign in</span></span>
+                        <span class="account-lists">Account & Lists</span>
+                    </div>
+                    <div class="cart" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                        <span>Cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="nav-bar">
+            <div class="container">
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showAllProducts()"><i class="fas fa-bars"></i> All</a></li>
+                    <li><a href="#" onclick="filterAndScrollToProducts('electronics')">Electronics</a></li>
+                    <li><a href="#" onclick="filterAndScrollToProducts('books')">Books</a></li>
+                    <li><a href="#" onclick="filterAndScrollToProducts('clothing')">Fashion</a></li>
+                    <li><a href="#" onclick="filterAndScrollToProducts('home')">Home & Garden</a></li>
+                    <li><a href="#" onclick="filterAndScrollToProducts('sports')">Sports</a></li>
+                    <li><a href="#" onclick="filterAndScrollToProducts('toys')">Toys & Games</a></li>
+                    <li><a href="#" onclick="filterAndScrollToProducts('beauty')">Beauty</a></li>
+                    <li><a href="#" onclick="filterAndScrollToProducts('automotive')">Automotive</a></li>
+                    <li><a href="#" onclick="filterAndScrollToProducts('food')">Food & Grocery</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="slide active">
+                <img src="https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=1200&h=400&fit=crop" alt="Electronics Sale">
+                <div class="slide-content">
+                    <h2>Electronics Sale</h2>
+                    <p>Up to 50% off on latest gadgets</p>
+                    <button class="cta-btn" onclick="filterAndScrollToProducts('electronics')">Shop Now</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.pexels.com/photos/1229861/pexels-photo-1229861.jpeg?auto=compress&cs=tinysrgb&w=1200&h=400&fit=crop" alt="Fashion Collection">
+                <div class="slide-content">
+                    <h2>Fashion Collection</h2>
+                    <p>Trending styles for every season</p>
+                    <button class="cta-btn" onclick="filterAndScrollToProducts('clothing')">Explore</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.pexels.com/photos/1148820/pexels-photo-1148820.jpeg?auto=compress&cs=tinysrgb&w=1200&h=400&fit=crop" alt="Home Essentials">
+                <div class="slide-content">
+                    <h2>Home Essentials</h2>
+                    <p>Transform your living space</p>
+                    <button class="cta-btn" onclick="filterAndScrollToProducts('home')">Discover</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters and Sorting -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filters">
+                <div class="filter-group">
+                    <label>Sort by:</label>
+                    <select id="sortSelect" onchange="sortProducts()">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Customer Rating</option>
+                        <option value="newest">Newest Arrivals</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Price Range:</label>
+                    <input type="range" id="priceRange" min="0" max="1000" value="1000" oninput="filterByPrice()">
+                    <span id="priceValue">$0 - $1000</span>
+                </div>
+                <div class="filter-group">
+                    <label>Rating:</label>
+                    <select id="ratingFilter" onchange="filterByRating()">
+                        <option value="all">All Ratings</option>
+                        <option value="4">4 Stars & Up</option>
+                        <option value="3">3 Stars & Up</option>
+                        <option value="2">2 Stars & Up</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Category:</label>
+                    <select id="categoryFilter" onchange="filterByCategory()">
+                        <option value="all">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="books">Books</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="home">Home & Garden</option>
+                        <option value="sports">Sports</option>
+                        <option value="toys">Toys & Games</option>
+                        <option value="beauty">Beauty</option>
+                        <option value="automotive">Automotive</option>
+                        <option value="food">Food & Grocery</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="productsSection">
+        <div class="container">
+            <h2 id="productsTitle">Featured Products</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+            <div class="load-more">
+                <button onclick="loadMoreProducts()">Load More Products</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section class="contact-section" id="contactSection">
+        <div class="container">
+            <div class="contact-header">
+                <h2>Contact Us</h2>
+                <p>We're here to help you with any questions or concerns</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Customer Service</h3>
+                            <p>1-800-AMAZON (1-800-262-9663)</p>
+                            <span>Available 24/7</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email Support</h3>
+                            <p>support@amazon.com</p>
+                            <span>Response within 24 hours</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Headquarters</h3>
+                            <p>410 Terry Ave N, Seattle, WA 98109</p>
+                            <span>United States</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Live Chat</h3>
+                            <p>Chat with our support team</p>
+                            <button class="chat-btn" onclick="startLiveChat()">Start Chat</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form id="contactForm" onsubmit="submitContactForm(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Email Address</label>
+                            <input type="email" id="contactEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a topic</option>
+                                <option value="order">Order Issues</option>
+                                <option value="product">Product Questions</option>
+                                <option value="shipping">Shipping & Delivery</option>
+                                <option value="returns">Returns & Refunds</option>
+                                <option value="account">Account Issues</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Please describe your issue or question..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: $<span id="cartTotal">0.00</span></strong>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Authentication Modal -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">Sign In</h2>
+                <button class="close-modal" onclick="closeAuthModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="authForm">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <div class="form-group" id="nameGroup" style="display: none;">
+                        <label for="name">Full Name:</label>
+                        <input type="text" id="name">
+                    </div>
+                    <button type="submit" id="authSubmit">Sign In</button>
+                </form>
+                <div class="auth-switch">
+                    <p id="authSwitchText">Don't have an account? <a href="#" onclick="switchAuthMode()">Sign up</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <button onclick="scrollToTop()">Back to top</button>
+        </div>
+        <div class="footer-content">
+            <div class="container">
+                <div class="footer-sections">
+                    <div class="footer-section">
+                        <h4>Get to Know Us</h4>
+                        <ul>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">About Amazon</a></li>
+                            <li><a href="#">Investor Relations</a></li>
+                            <li><a href="#">Amazon Devices</a></li>
+                            <li><a href="#">Amazon Science</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Make Money with Us</h4>
+                        <ul>
+                            <li><a href="#">Sell products on Amazon</a></li>
+                            <li><a href="#">Sell on Amazon Business</a></li>
+                            <li><a href="#">Sell apps on Amazon</a></li>
+                            <li><a href="#">Become an Affiliate</a></li>
+                            <li><a href="#">Advertise Your Products</a></li>
+                            <li><a href="#">Self-Publish with Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Amazon Payment Products</h4>
+                        <ul>
+                            <li><a href="#">Amazon Business Card</a></li>
+                            <li><a href="#">Shop with Points</a></li>
+                            <li><a href="#">Reload Your Balance</a></li>
+                            <li><a href="#">Amazon Currency Converter</a></li>
+                            <li><a href="#">Gift Cards</a></li>
+                            <li><a href="#">Amazon Cash</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Let Us Help You</h4>
+                        <ul>
+                            <li><a href="#">Amazon and COVID-19</a></li>
+                            <li><a href="#">Your Account</a></li>
+                            <li><a href="#">Your Orders</a></li>
+                            <li><a href="#">Shipping Rates & Policies</a></li>
+                            <li><a href="#">Returns & Replacements</a></li>
+                            <li><a href="#">Manage Your Content and Devices</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect with Us</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-middle">
+            <div class="container">
+                <div class="footer-logo">
+                    <img src="https://images.pexels.com/photos/6214479/pexels-photo-6214479.jpeg?auto=compress&cs=tinysrgb&w=100&h=40&fit=crop" alt="Amazon">
+                </div>
+                <div class="footer-countries">
+                    <div class="country-selector">
+                        <i class="fas fa-globe"></i>
+                        <select>
+                            <option>English</option>
+                            <option>Español</option>
+                            <option>Français</option>
+                            <option>Deutsch</option>
+                        </select>
+                    </div>
+                    <div class="currency-selector">
+                        <i class="fas fa-dollar-sign"></i>
+                        <select>
+                            <option>USD - U.S. Dollar</option>
+                            <option>EUR - Euro</option>
+                            <option>GBP - British Pound</option>
+                            <option>CAD - Canadian Dollar</option>
+                        </select>
+                    </div>
+                    <div class="country-flag">
+                        <i class="fas fa-flag-usa"></i>
+                        <span>United States</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-links">
+                    <a href="#">Conditions of Use</a>
+                    <a href="#">Privacy Notice</a>
+                    <a href="#">Interest-Based Ads</a>
+                    <a href="#">Your Ads Privacy Choices</a>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 1996-2024, Amazon.com, Inc. or its affiliates</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
